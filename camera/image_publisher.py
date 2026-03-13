@@ -59,7 +59,7 @@ class ImagePublisher(Node):
         t.child_frame_id = "camera"
         t.transform.translation.x = 0.0
         t.transform.translation.y = 0.0
-        t.transform.translation.z = 0.0
+        t.transform.translation.z = 1.0
         t.transform.rotation.x = 0.0
         t.transform.rotation.y = 0.0
         t.transform.rotation.z = 0.0
