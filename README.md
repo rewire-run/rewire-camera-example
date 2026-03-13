@@ -2,6 +2,10 @@
 
 Synthetic camera publishers for testing [rewire](https://github.com/rewire-run/rewire) image converters.
 
+<div align="center">
+  <img src="assets/rewire-camera.png" alt="rewire-camera">
+</div>
+
 ## Topics
 
 | Topic | Type | Description |
