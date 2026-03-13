@@ -4,7 +4,7 @@ from builtin_interfaces.msg import Time as TimeMsg
 from geometry_msgs.msg import TransformStamped
 from rclpy.node import Node
 from rclpy.qos import QoSProfile, HistoryPolicy
-from sensor_msgs.msg import Image
+from sensor_msgs.msg import CameraInfo, Image
 from std_msgs.msg import Header
 from tf2_ros import StaticTransformBroadcaster
 
@@ -37,6 +37,7 @@ class ImagePublisher(Node):
             depth=1,
         )
         self.publisher = self.create_publisher(Image, IMAGE_TOPIC, image_qos)
+        self.info_pub = self.create_publisher(CameraInfo, "/camera/camera_info", image_qos)
 
         self.tf_broadcaster = StaticTransformBroadcaster(self)
         self._publish_static_tf()
@@ -56,7 +57,7 @@ class ImagePublisher(Node):
         t = TransformStamped()
         t.header.stamp = TimeMsg(sec=0, nanosec=0)
         t.header.frame_id = "map"
-        t.child_frame_id = "camera"
+        t.child_frame_id = "camera_optical"
         t.transform.translation.x = 0.0
         t.transform.translation.y = 0.0
         t.transform.translation.z = 1.0
@@ -65,7 +66,7 @@ class ImagePublisher(Node):
         t.transform.rotation.z = 0.0
         t.transform.rotation.w = 1.0
         self.tf_broadcaster.sendTransform(t)
-        self.get_logger().info("Published static TF: map -> camera")
+        self.get_logger().info("Published static TF: map -> camera_optical")
 
     def _on_timer(self):
         now = self.get_clock().now().to_msg()
@@ -73,7 +74,7 @@ class ImagePublisher(Node):
         self._fill_gradient(self.frame_count)
 
         msg = Image()
-        msg.header = Header(stamp=now, frame_id="camera")
+        msg.header = Header(stamp=now, frame_id="camera_optical")
         msg.height = self.height
         msg.width = self.width
         msg.encoding = "rgb8"
@@ -82,6 +83,18 @@ class ImagePublisher(Node):
         msg.data = self.pixels.tobytes()
 
         self.publisher.publish(msg)
+
+        fx = float(self.width)
+        fy = float(self.width)
+        cx = self.width / 2.0
+        cy = self.height / 2.0
+        info = CameraInfo()
+        info.header = Header(stamp=now, frame_id="camera_optical")
+        info.height = self.height
+        info.width = self.width
+        info.k = [fx, 0.0, cx, 0.0, fy, cy, 0.0, 0.0, 1.0]
+        self.info_pub.publish(info)
+
         self.frame_count += 1
 
     def _fill_gradient(self, frame: int):
