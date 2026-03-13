@@ -1,0 +1,38 @@
+[workspace]
+name = "rewire-camera-example"
+version = "0.1.0"
+description = "Synthetic camera publishers for testing rewire"
+channels = ["conda-forge", "https://prefix.dev/rewire"]
+platforms = ["osx-arm64", "linux-64"]
+
+[dependencies]
+colcon-common-extensions = ">=0.3.0,<0.4"
+numpy = ">=1.24"
+opencv = ">=4"
+python = ">=3.11"
+rewire = "*"
+
+[feature.humble]
+channels = ["robostack-humble"]
+
+[feature.humble.dependencies]
+ros-humble-rclpy = ">=3.3"
+ros-humble-sensor-msgs = ">=4.2"
+ros-humble-geometry-msgs = ">=4.2"
+ros-humble-tf2-ros = ">=0.25"
+ros-humble-std-msgs = ">=4.2"
+ros-humble-ros2launch = "*"
+ros-humble-tf2-ros-py = "*"
+ros-humble-image-transport = "*"
+ros-humble-image-transport-plugins = "*"
+
+[environments]
+default = ["humble"]
+
+[tasks]
+build = "sh -c 'colcon build --symlink-install --event-handlers console_direct+ --cmake-args -G Ninja -DPython3_EXECUTABLE=$(which python) -DPython_EXECUTABLE=$(which python)'"
+launch = { cmd = "bash -c 'source install/setup.sh && ros2 launch camera camera.launch.py'", depends-on = ["build"] }
+clean = "rm -rf build/ install/ log/"
+
+[activation]
+scripts = ["install/setup.sh"]
