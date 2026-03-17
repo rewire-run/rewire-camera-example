@@ -13,7 +13,6 @@ FREQUENCY_HZ = 30
 MIN_DEPTH = 0.3
 MAX_DEPTH = 10.0
 
-
 class DepthPublisher(Node):
     def __init__(self):
         super().__init__("camera_depth_publisher")

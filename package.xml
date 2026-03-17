@@ -1,18 +1,27 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>camera</name>
+  <name>rewire_camera</name>
   <version>0.1.0</version>
   <description>Publishes synthetic camera images for testing rewire-bridge</description>
-  <maintainer email="alvaro@todo.com">alvaro</maintainer>
+  <maintainer email="alvgaona@gmail.com">Alvaro J. Gaona</maintainer>
+  <url type="website">https://github.com/rewire-run/rewire-camera-example</url>
+  <url type="repository">https://github.com/rewire-run/rewire-camera-example</url>
   <license>MIT</license>
+
+  <buildtool_depend>ros2launch</buildtool_depend>
 
   <exec_depend>rclpy</exec_depend>
   <exec_depend>sensor_msgs</exec_depend>
-  <exec_depend>tf2_ros</exec_depend>
   <exec_depend>geometry_msgs</exec_depend>
-
-  <buildtool_depend>ament_python</buildtool_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>tf2_ros_py</exec_depend>
+  <exec_depend>image_transport</exec_depend>
+  <exec_depend>image_transport_plugins</exec_depend>
 
   <export>
     <build_type>ament_python</build_type>

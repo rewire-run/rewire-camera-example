@@ -1,9 +1,15 @@
 [workspace]
-name = "rewire-camera-example"
+preview = ["pixi-build"]
+name = "rewire-camera"
 version = "0.1.0"
 description = "Synthetic camera publishers for testing rewire"
-channels = ["conda-forge", "https://prefix.dev/rewire"]
+channels = [
+    "conda-forge",
+    "https://prefix.dev/rewire"]
 platforms = ["osx-arm64", "linux-64"]
+
+[package.build]
+backend = { name = "pixi-build-ros", version = "*" }
 
 [dependencies]
 colcon-common-extensions = ">=0.3.0,<0.4"
@@ -16,23 +22,21 @@ rewire = "*"
 channels = ["robostack-humble"]
 
 [feature.humble.dependencies]
-ros-humble-rclpy = ">=3.3"
-ros-humble-sensor-msgs = ">=4.2"
-ros-humble-geometry-msgs = ">=4.2"
-ros-humble-tf2-ros = ">=0.25"
-ros-humble-std-msgs = ">=4.2"
-ros-humble-ros2launch = "*"
-ros-humble-tf2-ros-py = "*"
-ros-humble-image-transport = "*"
-ros-humble-image-transport-plugins = "*"
+ros-humble-ros2cli = ">=0.18.17,<0.19"
+ros-humble-ros2launch = ">=0.19.13,<0.20"
+ros-humble-ros2service = ">=0.18.17,<0.19"
+ros-humble-rewire-camera = { path = "." }
+
+[feature.jazzy]
+channels = ["robostack-jazzy"]
+
+[feature.jazzy.dependencies]
+ros-jazzy-ros2cli = ">=0.32.8,<0.33"
+ros-jazzy-ros2launch = ">=0.26.11,<0.27"
+ros-jazzy-ros2service = ">=0.32.8,<0.33"
+ros-jazzy-rewire-camera = { path = "." }
 
 [environments]
 default = ["humble"]
-
-[tasks]
-build = "sh -c 'colcon build --symlink-install --event-handlers console_direct+ --cmake-args -G Ninja -DPython3_EXECUTABLE=$(which python) -DPython_EXECUTABLE=$(which python)'"
-launch = { cmd = "bash -c 'source install/setup.sh && ros2 launch camera camera.launch.py'", depends-on = ["build"] }
-clean = "rm -rf build/ install/ log/"
-
-[activation]
-scripts = ["install/setup.sh"]
+jazzy = ["jazzy"]
+humble = ["humble"]

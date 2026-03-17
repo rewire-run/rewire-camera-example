@@ -12,13 +12,13 @@ height_arg = DeclareLaunchArgument("height", default_value="240")
 frequency_hz_arg = DeclareLaunchArgument("frequency_hz", default_value="30")
 
 image_publisher = Node(
-    package="camera",
+    package="rewire_camera",
     executable="image_publisher",
     parameters=[{"width": width, "height": height, "frequency_hz": frequency_hz}],
 )
 
 depth_publisher = Node(
-    package="camera",
+    package="rewire_camera",
     executable="depth_publisher",
     parameters=[{"width": width, "height": height, "frequency_hz": frequency_hz}],
 )
