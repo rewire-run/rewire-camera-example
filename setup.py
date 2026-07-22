@@ -19,6 +19,7 @@ setup(
         "console_scripts": [
             "image_publisher = rewire_camera.image_publisher:main",
             "depth_publisher = rewire_camera.depth_publisher:main",
+            "video_publisher = rewire_camera.video_publisher:main",
         ],
     },
 )

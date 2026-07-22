@@ -7,9 +7,11 @@ width = LaunchConfiguration("width")
 height = LaunchConfiguration("height")
 frequency_hz = LaunchConfiguration("frequency_hz")
 
-width_arg = DeclareLaunchArgument("width", default_value="320")
-height_arg = DeclareLaunchArgument("height", default_value="240")
-frequency_hz_arg = DeclareLaunchArgument("frequency_hz", default_value="30")
+width_arg = DeclareLaunchArgument("width", default_value="1920")
+height_arg = DeclareLaunchArgument("height", default_value="1080")
+frequency_hz_arg = DeclareLaunchArgument("frequency_hz", default_value="60")
+video_codec = LaunchConfiguration("video_codec")
+video_codec_arg = DeclareLaunchArgument("video_codec", default_value="h264")
 
 image_publisher = Node(
     package="rewire_camera",
@@ -23,17 +25,29 @@ depth_publisher = Node(
     parameters=[{"width": width, "height": height, "frequency_hz": frequency_hz}],
 )
 
-republish_rgb = Node(
-    package="image_transport",
-    executable="republish",
-    name="republish_rgb",
-    arguments=["raw", "compressed"],
-    remappings=[
-        ("in", "/camera/image_raw"),
-        ("out/compressed", "/camera/image_raw/compressed"),
+video_publisher = Node(
+    package="rewire_camera",
+    executable="video_publisher",
+    parameters=[
+        {
+            "width": width,
+            "height": height,
+            "frequency_hz": frequency_hz,
+            "codec": video_codec,
+        }
     ],
 )
 
+# republish_rgb = Node(
+#     package="image_transport",
+#     executable="republish",
+#     name="republish_rgb",
+#     arguments=["raw", "compressed"],
+#     remappings=[
+#         ("in", "/camera/image_raw"),
+#         ("out/compressed", "/camera/image_raw/compressed"),
+#     ],
+# )
 
 def generate_launch_description():
     return LaunchDescription(
@@ -41,8 +55,10 @@ def generate_launch_description():
             width_arg,
             height_arg,
             frequency_hz_arg,
+            video_codec_arg,
             image_publisher,
             depth_publisher,
-            republish_rgb,
+            video_publisher,
+            # republish_rgb,
         ]
     )
