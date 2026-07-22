@@ -38,6 +38,8 @@ into the pixi environment automatically.
 |---|---|
 | `default` / `humble` | Humble |
 | `jazzy` | Jazzy |
+| `kilted` | Kilted |
+| `lyrical` | Lyrical |
 
 ## Usage
 
