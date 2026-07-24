@@ -28,7 +28,7 @@ CODECS = {
             "libx265": {
                 "preset": "ultrafast",
                 "tune": "zerolatency",
-                "x265-params": "repeat-headers=1:no-open-gop=1:frame-threads=1:log-level=error",
+                "x265-params": "repeat-headers=1:frame-threads=1:log-level=error",
             },
         },
     },

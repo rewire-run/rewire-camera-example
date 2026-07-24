@@ -115,9 +115,11 @@ Then in the viewer open **Settings**, enable **Video: override FFmpeg path**, an
 both codecs. It also applies to video files, where it may slow down timeline scrubbing of high-resolution
 recordings; disable the override if that matters more to you.
 
-### H.265 streams must use closed GOPs
+### H.265 open GOPs need viewer 0.7.0 or newer
 
-Rerun only recognizes IDR keyframes (not CRA), so an h265 stream encoded with open GOPs (the x265 default)
-never decodes for a viewer that joins mid-stream and fails with "No key frames prior to current time". The
-`video_publisher` node already encodes with `no-open-gop=1`; if you bring your own encoder, do the same and
-repeat the parameter sets on every keyframe (`repeat-headers=1` for x265).
+Viewers before 0.7.0 (Rerun 0.34) only recognize IDR keyframes, so an h265 stream encoded with open GOPs
+(the x265 default) shows nothing for a viewer that joins mid-stream. Rerun 0.35 accepts CRA keyframes too,
+so from viewer 0.7.0 onward open GOPs work and `video_publisher` no longer forces `no-open-gop=1`. Two
+things still matter for any encoder: repeat the parameter sets on every keyframe (`repeat-headers=1` for
+x265), and expect up to one keyframe interval of black after joining mid-stream before the picture appears
+(x265 defaults to `keyint=250`). If you must support older viewers, encode with `no-open-gop=1`.
