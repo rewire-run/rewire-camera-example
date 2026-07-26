@@ -42,7 +42,7 @@ class DepthPublisher(Node):
 
     def _on_publish(self):
         now = self.get_clock().now().to_msg()
-        header = Header(stamp=now, frame_id="camera")
+        header = Header(stamp=now, frame_id="camera_optical")
         depth = self._generate_depth(self.frame_count)
 
         raw = Image()
