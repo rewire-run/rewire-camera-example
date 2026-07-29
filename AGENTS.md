@@ -23,7 +23,6 @@ resource/            # ament package marker
 package.xml          # ROS package manifest
 setup.py / setup.cfg # ament_python install
 pixi.toml            # env, deps, tasks (app / viz)
-assets/              # README images
 ```
 
 ## Runtime

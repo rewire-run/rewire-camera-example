@@ -1,12 +1,16 @@
-# rewire-camera-example
+<h1 align="center">
+  <a href="https://www.rewire.run/">
+    <img alt="rewire" src="https://github.com/user-attachments/assets/2f69363d-f5c8-4fd0-9a54-4c3975ae1d23">
+  </a>
+</h1>
 
-[![Pixi Badge](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/prefix-dev/pixi/main/assets/badge/v0.json)](https://pixi.sh)
+<p align="center">
+  <a href="https://pixi.sh">
+    <img alt="Pixi Badge" src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/prefix-dev/pixi/main/assets/badge/v0.json"/>
+  </a>
+</p>
 
 Synthetic camera publishers for testing [rewire](https://github.com/rewire-run/rewire) image converters.
-
-<div align="center">
-  <img src="assets/rewire-camera.png" alt="rewire-camera">
-</div>
 
 ## Topics
 
