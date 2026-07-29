@@ -7,9 +7,9 @@ width = LaunchConfiguration("width")
 height = LaunchConfiguration("height")
 frequency_hz = LaunchConfiguration("frequency_hz")
 
-width_arg = DeclareLaunchArgument("width", default_value="1920")
-height_arg = DeclareLaunchArgument("height", default_value="1080")
-frequency_hz_arg = DeclareLaunchArgument("frequency_hz", default_value="60")
+width_arg = DeclareLaunchArgument("width", default_value="640")
+height_arg = DeclareLaunchArgument("height", default_value="360")
+frequency_hz_arg = DeclareLaunchArgument("frequency_hz", default_value="30")
 video_codec = LaunchConfiguration("video_codec")
 video_codec_arg = DeclareLaunchArgument("video_codec", default_value="h264")
 
