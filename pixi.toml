@@ -20,6 +20,10 @@ rewire = "*"
 zenohd = "*"
 av = ">=12"
 
+[tasks]
+app = "ros2 launch rewire_camera camera.launch.py"
+viz = "rewire record --config $PIXI_PROJECT_ROOT/config/rewire.json5"
+
 [feature.humble]
 channels = ["robostack-humble"]
 
@@ -34,6 +38,8 @@ ros-humble-ros2service = ">=0.18.17,<0.19"
 ros-humble-rewire-camera = { path = "." }
 ros-humble-ros2topic = ">=0.18.17,<0.19"
 ros-humble-ros2doctor = ">=0.18.17,<0.19"
+ros-humble-ros2node = ">=0.18.17,<0.19"
+ros-humble-ros2run = ">=0.18.17,<0.19"
 
 [feature.jazzy]
 channels = ["robostack-jazzy"]

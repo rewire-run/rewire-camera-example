@@ -44,19 +44,30 @@ into the pixi environment automatically.
 ## Usage
 
 ```bash
-pixi run ros2 launch rewire_camera camera.launch.py
+pixi run app
 ```
+
+In a separate terminal, run rewire to visualize in Rerun:
+
+```bash
+pixi run viz
+```
+
+`app` launches `camera.launch.py`. `viz` runs `rewire record` with
+[`config/rewire.json5`](config/rewire.json5) (all topics except `/rosout` and `/parameter_events`).
 
 With custom resolution and frame rate:
 
 ```bash
-pixi run ros2 launch rewire_camera camera.launch.py width:=1280 height:=720 frequency_hz:=10
+pixi run app -- width:=1280 height:=720 frequency_hz:=10
 ```
 
-For the Jazzy environment:
+Add `-e <env>` to pick a ROS 2 distro other than the default (humble):
 
 ```bash
-pixi run -e jazzy ros2 launch rewire_camera camera.launch.py
+pixi run -e jazzy app
+pixi run -e kilted app
+pixi run -e lyrical app
 ```
 
 ## Development
@@ -76,19 +87,15 @@ The launch file starts three nodes:
 - **video_publisher** - encodes the gradient plus a moving white square to H.264 (PyAV/libx264, zerolatency,
   no B-frames, keyframe every 30 frames) and publishes it as `CompressedImage` with `format: "h264"`
 
-In a separate terminal, run rewire to visualize all topics in Rerun:
-
-```bash
-pixi run rewire record --all
-```
-
 ## Testing VideoStream
 
 The bridge maps `CompressedImage` with an `h264`/`h265` format to Rerun's `VideoStream` archetype (rewire
 0.7.0 or newer; on older releases build the bridge from source):
 
 ```bash
-pixi run rewire record --all
+pixi run app
+# other terminal
+pixi run viz
 ```
 
 `/camera/video` appears in the viewer as a decoded video stream instead of individual images. Select the

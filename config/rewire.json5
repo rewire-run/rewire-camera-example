@@ -1,0 +1,14 @@
+{
+  // Application ID shown in the Rerun viewer title bar.
+  app_id: "camera-example",
+
+  // Per-topic diagnostics (hz, bytes/sec, drops, latency).
+  diagnostics: true,
+
+  // Subscribe to all camera publishers + static TF.
+  // Glob notes: "/**" matches all topics; a bare "*" matches nothing.
+  topics: {
+    include: ["/**"],
+    exclude: ["/rosout", "/parameter_events"],
+  },
+}
